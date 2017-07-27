@@ -434,7 +434,7 @@ module.exports = function (grunt) {
       },
       pages: {
         options: {
-          remote: 'git@github.com:COLTstreet/plexrequest.git',
+          remote: 'https://github.com/COLTstreet/plexrequest.git',
           branch: 'gh-pages'
         }
       },
