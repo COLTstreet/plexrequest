@@ -23,10 +23,16 @@ body {
   color: #e5a00d;
 }
 
+.tile {
+  height: 100%;
+  border: 1px solid #e5a00d;
+}
+
 .section-header {
   background: #009688;
   padding: 5px;
   height: 35px;
+  overflow: hidden;
 }
 
 .section-text {
@@ -37,6 +43,10 @@ body {
 
 .title-font {
   font-size: 2vh;
+}
+
+.search-button {
+  background: #e5a00d;
 }
 
 /* .movie-image:hover {

@@ -1,17 +1,83 @@
 <div id="page">
   <md-toolbar class="md-hue-2">
-    <div class="md-toolbar-tools">
-      <h2 flex md-truncate>Plex Request</h2>
+    <div class="md-toolbar-tools" layout="column" layout-align="none" flex="100">
+      <div layout="row" layout-align="none" flex="100">
+        <div flex layout="column" layout-align="center start">
+          <h2 md-truncate>Plex Request</h2>
+        </div>
 
-      <md-button ng-click="toggleRight()"
-            ng-hide="isOpenRight()"
-            class="plex-color">
-            View Selected
-      </md-button>
+        <div flex layout="row" layout-align="center">
+          <div flex="90">
+            <md-input-container class="md-block">
+              <!-- Use floating placeholder instead of label -->
+              <md-icon class="fa fa-search"></md-icon>
+              <input ng-model="searchString" type="input" placeholder="Search" ng-required="true">
+            </md-input-container>
+          </div>
+          <div layout="column" layout-align="center center">
+            <md-button class="search-button" ng-click="search(searchString)"
+                  class="plex-color">
+                  Search
+            </md-button>
+          </div>
+        </div>
+
+        <div flex layout="column" layout-align="center end">
+          <md-button ng-click="toggleRight()"
+                ng-hide="isOpenRight()"
+                class="plex-color">
+                View Selected
+          </md-button>
+        </div>
+      </div>
     </div>
   </md-toolbar>
-  <md-content layout-padding>
 
+  <!-- SEARCH CONTENT -->
+  <md-content layout-padding ng-if="searching">
+    <!-- Search Section -->
+    <div class="section-text">Search Results</div>
+    <div layout="column" layout-align="center center">
+      <md-button ng-click="backToHome()"
+            class="plex-color">
+            Back to Home
+      </md-button>
+    </div>
+    <md-divider class="plex"></md-divider>
+    <md-grid-list
+        md-cols-gt-md="5" md-cols="3" md-cols-md="4"
+        md-row-height-gt-md="350px" md-row-height="100px"
+        md-gutter-gt-md="8px" md-gutter-md="4px" md-gutter="2px">
+      <md-grid-tile
+          ng-repeat="movie in searchMovies"
+          md-colspan-gt-sm="1"
+          md-rowspan-gt-sm="1">
+          <div layout="column" layout-align="none" flex="100" style="height: 100%;">
+            <div class="section-header" layout="column" layout-align="center stretch">
+              <div layout="row" layout-align="none" class="movie-text">
+                <div class="title-font" flex>
+                  {{movie.title}}
+                </div>
+                <div class="heart-icon" ng-click="select(movie)">
+                  <i ng-class="{'fa fa-heart-o' : !movie.selected, 'fa fa-heart' : movie.selected }" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="heart-icon" layout="column" layout-align="stretch" flex="90" class="movie-image" ng-click="select(movie)"
+              ng-style="{
+                'background': 'url(http://image.tmdb.org/t/p/w780/' + movie.backdrop_path + ')',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover'
+              }">
+              <div ng-show="movie.backdrop_path === null">No Image Available</div>
+            </div>
+            <md-tooltip md-direction="top">{{movie.title}}</md-tooltip>
+          </div>
+      </md-grid-tile>
+    </md-grid-list>
+  </md-content>
+
+  <md-content layout-padding ng-if="!searching">
 
     <!-- Popular Movies Section -->
     <div class="section-text">Popular Movies</div>

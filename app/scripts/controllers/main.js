@@ -15,14 +15,21 @@ angular.module('plexrequestApp')
     $scope.select = select;
     $scope.close = close;
     $scope.sendRequest = sendRequest;
+    $scope.search = search;
+    $scope.backToHome = backToHome;
 
     //Variables
     $scope.addedMovies = [];
     $rootScope.addedMovies = [];
+    $scope.searching = false;
     $scope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function(){
       return $mdSidenav('right').isOpen();
     };
+
+    function backToHome() {
+      $scope.searching = !$scope.searching;
+    }
 
     function close() {
       // Component lookup should always be available since we are not using `ng-if`
@@ -69,6 +76,22 @@ angular.module('plexrequestApp')
             $log.debug("toggle " + navID + " is done");
           });
       };
+    }
+
+    function search(string) {
+      var query = encodeURI(string);
+      // Search
+      $.ajax({
+					url : "https://api.themoviedb.org/3/search/movie?api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99&query=" + query,
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.searchMovies = parsed_json.results;
+						});
+					}
+        });
+        
+        $scope.searching = true;
     }
 
     function init() {
@@ -140,15 +163,16 @@ angular.module('plexrequestApp')
         });
         
       //Genres
-      $.ajax({
-					url : "https://api.themoviedb.org/3/genre/movie/list?api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
-					dataType : "jsonp",
-					success : function(parsed_json) {
-						$scope.$apply(function() { // put $scope var that needs to be updated
-              console.log(parsed_json);
-						});
-					}
-				});
+      // $.ajax({
+			// 		url : "https://api.themoviedb.org/3/genre/movie/list?api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+			// 		dataType : "jsonp",
+			// 		success : function(parsed_json) {
+			// 			$scope.$apply(function() { // put $scope var that needs to be updated
+      //         console.log(parsed_json);
+			// 			});
+			// 		}
+      // 	});
+
     }
 
     $scope.init();
