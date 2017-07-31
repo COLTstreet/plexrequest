@@ -10,6 +10,32 @@ body {
   color: white;
 }
 
+.movie-text {
+}
+
+.heart-icon {
+  outline: none;
+}
+
+.section-header {
+  background: #009688;
+  padding: 5px;
+  height: 35px;
+}
+
+.section-text {
+  text-align: center;
+  padding: 1%;
+}
+
+.title-font {
+  font-size: 2vh;
+}
+
+/* .movie-image:hover {
+  border: 4px solid #009688;
+} */
+
 /* Custom page footer */
 
 .container-narrow > hr {
