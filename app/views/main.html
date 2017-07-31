@@ -5,15 +5,17 @@
 
       <md-button ng-click="toggleRight()"
             ng-hide="isOpenRight()"
-            class="md-primary">
+            class="plex-color">
             View Selected
       </md-button>
     </div>
   </md-toolbar>
   <md-content layout-padding>
+
+
     <!-- Popular Movies Section -->
     <div class="section-text">Popular Movies</div>
-    <md-divider></md-divider>
+    <md-divider class="plex"></md-divider>
     <md-grid-list
         md-cols-gt-md="5" md-cols="3" md-cols-md="4"
         md-row-height-gt-md="350px" md-row-height="100px"
@@ -44,9 +46,11 @@
           </div>
       </md-grid-tile>
     </md-grid-list>
+
+
     <!-- Popular Kids Movies Section -->
     <div class="section-text">Kids</div>
-    <md-divider></md-divider>
+    <md-divider class="plex"></md-divider>
     <md-grid-list
         md-cols-gt-md="5" md-cols="3" md-cols-md="4"
         md-row-height-gt-md="350px" md-row-height="100px"
@@ -77,9 +81,11 @@
           </div>
       </md-grid-tile>
     </md-grid-list>
+
+
     <!-- Drama Movies Section -->
     <div class="section-text">Drama</div>
-    <md-divider></md-divider>
+    <md-divider class="plex"></md-divider>
     <md-grid-list
         md-cols-gt-md="5" md-cols="3" md-cols-md="4"
         md-row-height-gt-md="350px" md-row-height="100px"
@@ -110,6 +116,115 @@
           </div>
       </md-grid-tile>
     </md-grid-list>
+
+
+    <!-- Action Movies Section -->
+    <div class="section-text">Action</div>
+    <md-divider class="plex"></md-divider>
+    <md-grid-list
+        md-cols-gt-md="5" md-cols="3" md-cols-md="4"
+        md-row-height-gt-md="350px" md-row-height="100px"
+        md-gutter-gt-md="8px" md-gutter-md="4px" md-gutter="2px">
+      <md-grid-tile
+          ng-repeat="movie in actionMovies"
+          md-colspan-gt-sm="1"
+          md-rowspan-gt-sm="1">
+          <div layout="column" layout-align="none" flex="100" style="height: 100%;">
+            <div class="section-header" layout="column" layout-align="center stretch">
+              <div layout="row" layout-align="none" class="movie-text">
+                <div class="title-font" flex>
+                  {{movie.title}}
+                </div>
+                <div class="heart-icon" ng-click="select(movie)">
+                  <i ng-class="{'fa fa-heart-o' : !movie.selected, 'fa fa-heart' : movie.selected }" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="heart-icon" layout="column" layout-align="stretch" flex="90" class="movie-image" ng-click="select(movie)"
+              ng-style="{
+                'background': 'url(http://image.tmdb.org/t/p/w780/' + movie.backdrop_path + ')',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover'
+              }">
+            </div>
+            <md-tooltip md-direction="top">{{movie.title}}</md-tooltip>
+          </div>
+      </md-grid-tile>
+    </md-grid-list>
+
+
+    <!-- Adventure Movies Section -->
+    <div class="section-text">Adventure</div>
+    <md-divider class="plex"></md-divider>
+    <md-grid-list
+        md-cols-gt-md="5" md-cols="3" md-cols-md="4"
+        md-row-height-gt-md="350px" md-row-height="100px"
+        md-gutter-gt-md="8px" md-gutter-md="4px" md-gutter="2px">
+      <md-grid-tile
+          ng-repeat="movie in adventureMovies"
+          md-colspan-gt-sm="1"
+          md-rowspan-gt-sm="1">
+          <div layout="column" layout-align="none" flex="100" style="height: 100%;">
+            <div class="section-header" layout="column" layout-align="center stretch">
+              <div layout="row" layout-align="none" class="movie-text">
+                <div class="title-font" flex>
+                  {{movie.title}}
+                </div>
+                <div class="heart-icon" ng-click="select(movie)">
+                  <i ng-class="{'fa fa-heart-o' : !movie.selected, 'fa fa-heart' : movie.selected }" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="heart-icon" layout="column" layout-align="stretch" flex="90" class="movie-image" ng-click="select(movie)"
+              ng-style="{
+                'background': 'url(http://image.tmdb.org/t/p/w780/' + movie.backdrop_path + ')',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover'
+              }">
+            </div>
+            <md-tooltip md-direction="top">{{movie.title}}</md-tooltip>
+          </div>
+      </md-grid-tile>
+    </md-grid-list>
+
+
+    <!-- Comedy Movies Section -->
+    <div class="section-text">Comedy</div>
+    <md-divider class="plex"></md-divider>
+    <md-grid-list
+        md-cols-gt-md="5" md-cols="3" md-cols-md="4"
+        md-row-height-gt-md="350px" md-row-height="100px"
+        md-gutter-gt-md="8px" md-gutter-md="4px" md-gutter="2px">
+      <md-grid-tile
+          ng-repeat="movie in comedyMovies"
+          md-colspan-gt-sm="1"
+          md-rowspan-gt-sm="1">
+          <div layout="column" layout-align="none" flex="100" style="height: 100%;">
+            <div class="section-header" layout="column" layout-align="center stretch">
+              <div layout="row" layout-align="none" class="movie-text">
+                <div class="title-font" flex>
+                  {{movie.title}}
+                </div>
+                <div class="heart-icon" ng-click="select(movie)">
+                  <i ng-class="{'fa fa-heart-o' : !movie.selected, 'fa fa-heart' : movie.selected }" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="heart-icon" layout="column" layout-align="stretch" flex="90" class="movie-image" ng-click="select(movie)"
+              ng-style="{
+                'background': 'url(http://image.tmdb.org/t/p/w780/' + movie.backdrop_path + ')',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover'
+              }">
+            </div>
+            <md-tooltip md-direction="top">{{movie.title}}</md-tooltip>
+          </div>
+      </md-grid-tile>
+    </md-grid-list>
+
+
+
+
   </md-content>
   <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
       <md-toolbar class="md-theme-light">
@@ -120,10 +235,13 @@
         <div ng-repeat="mov in addedMovies">
           {{mov}}
         </div>
-        <md-button ng-click="request()" class="md-primary">
+
+        <md-divider class="plex"></md-divider>
+        
+        <md-button ng-click="sendRequest()" class="plex-color">
           Send Request
         </md-button>
-        <md-button ng-click="close()" class="md-primary">
+        <md-button ng-click="close()" class="plex-color">
           Close
         </md-button>
       </md-content>

@@ -10,11 +10,17 @@ body {
   color: white;
 }
 
-.movie-text {
+.plex {
+  border-top-color: #e5a00d;
+}
+
+.plex-color {
+  color: #e5a00d;
 }
 
 .heart-icon {
   outline: none;
+  color: #e5a00d;
 }
 
 .section-header {
@@ -26,6 +32,7 @@ body {
 .section-text {
   text-align: center;
   padding: 1%;
+  font-size: 5vh;
 }
 
 .title-font {
