@@ -66,7 +66,6 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.popularMovies = parsed_json.results;
-              console.log($scope.popularMovies);
 						});
 					}
         });
@@ -78,7 +77,6 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.popularKidsMovies = parsed_json.results;
-              console.log($scope.popularKidsMovies);
 						});
 					}
         });
@@ -90,7 +88,6 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.dramaMovies = parsed_json.results;
-              console.log($scope.dramaMovies);
 						});
 					}
 				});
