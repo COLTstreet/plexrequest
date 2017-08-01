@@ -13,15 +13,20 @@ angular.module('plexrequestApp')
     //Functions
     $scope.init = init;
     $scope.select = select;
+    $scope.selectShow = selectShow;
     $scope.close = close;
     $scope.sendRequest = sendRequest;
     $scope.search = search;
+    $scope.searchTV = searchTV;
     $scope.backToHome = backToHome;
+    $scope.backToTVHome = backToTVHome;
 
     //Variables
     $scope.addedMovies = [];
     $rootScope.addedMovies = [];
     $scope.searching = false;
+    $scope.tvSearching = false;
+    $scope.showMovies = true;
     $scope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function(){
       return $mdSidenav('right').isOpen();
@@ -29,6 +34,10 @@ angular.module('plexrequestApp')
 
     function backToHome() {
       $scope.searching = !$scope.searching;
+    }
+
+    function backToTVHome() {
+      $scope.tvSearching = !$scope.tvSearching;
     }
 
     function close() {
@@ -48,6 +57,20 @@ angular.module('plexrequestApp')
       } else {
         if($scope.addedMovies.indexOf(movie.title) !== -1){
           var index = $scope.addedMovies.indexOf(movie.title);
+          $scope.addedMovies.splice(index, 1);
+        }
+      }
+    }
+
+    function selectShow(show) {
+      show.selected = !show.selected
+      if(show.selected) {
+        if($scope.addedMovies.indexOf(show.name) === -1){
+          $scope.addedMovies.push(show.name)
+        }
+      } else {
+        if($scope.addedMovies.indexOf(show.name) !== -1){
+          var index = $scope.addedMovies.indexOf(show.name);
           $scope.addedMovies.splice(index, 1);
         }
       }
@@ -92,6 +115,22 @@ angular.module('plexrequestApp')
         });
         
         $scope.searching = true;
+    }
+
+    function searchTV(string) {
+      var query = encodeURI(string);
+      // Search
+      $.ajax({
+					url : "https://api.themoviedb.org/3/search/tv?api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99&query=" + query,
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.searchShows = parsed_json.results;
+						});
+					}
+        });
+        
+        $scope.tvSearching = true;
     }
 
     function init() {
@@ -158,6 +197,61 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.comedyMovies = parsed_json.results;
+						});
+					}
+        });
+
+      //Popular shows call
+      $.ajax({
+					url : "https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.popularShows = parsed_json.results;
+						});
+					}
+        });
+        
+      //Best Drama shows call
+      $.ajax({
+					url : "https://api.themoviedb.org/3/discover/tv?certification_country=US&with_genres=18&sort_by=popularity.desc&api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.dramaShows = parsed_json.results;
+						});
+					}
+        });
+        
+      //Best Action shows call
+      $.ajax({
+					url : "https://api.themoviedb.org/3/discover/tv?certification_country=US&with_genres=28&sort_by=popularity.desc&api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.actionShows = parsed_json.results;
+						});
+					}
+        });
+        
+      //Best Adventure call
+      $.ajax({
+					url : "https://api.themoviedb.org/3/discover/tv?certification_country=US&with_genres=12&sort_by=popularity.desc&api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.adventureShows = parsed_json.results;
+						});
+					}
+        });
+        
+      //Best Comedy call
+      $.ajax({
+					url : "https://api.themoviedb.org/3/discover/tv?certification_country=US&with_genres=35&sort_by=popularity.desc&api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.comedyShows = parsed_json.results;
 						});
 					}
         });
