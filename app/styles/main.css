@@ -23,6 +23,14 @@ body {
   color: #e5a00d;
 }
 
+.search-icon {
+  cursor: pointer;
+}
+
+.search-bar {
+  background: #303030;
+}
+
 .tile {
   height: 100%;
   border: 1px solid #e5a00d;

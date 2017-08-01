@@ -1,37 +1,43 @@
 <div id="page">
   <md-toolbar class="md-hue-2">
-    <div class="md-toolbar-tools" layout="column" layout-align="none" flex="100">
-      <div layout="row" layout-align="none" flex="100">
-        <div flex layout="column" layout-align="center start">
-          <h2 md-truncate>Plex Request</h2>
-        </div>
+    <div class="md-toolbar-tools">
+      <h2 flex md-truncate>Plex Request</h2>
 
-        <div flex layout="row" layout-align="center">
-          <div flex="90">
-            <md-input-container class="md-block">
-              <!-- Use floating placeholder instead of label -->
-              <md-icon class="fa fa-search"></md-icon>
-              <input ng-model="searchString" type="input" placeholder="Search" ng-required="true">
-            </md-input-container>
-          </div>
-          <div layout="column" layout-align="center center">
-            <md-button class="search-button" ng-click="search(searchString)"
-                  class="plex-color">
-                  Search
-            </md-button>
-          </div>
-        </div>
+      <md-button ng-click="toggleRight()"
+            ng-hide="isOpenRight()"
+            class="plex-color">
+            View Selected
+      </md-button>
+    </div>
+  </md-toolbar>
 
-        <div flex layout="column" layout-align="center end">
-          <md-button ng-click="toggleRight()"
-                ng-hide="isOpenRight()"
-                class="plex-color">
-                View Selected
-          </md-button>
-        </div>
+  <md-toolbar>
+    <div class="md-toolbar-tools search-bar" layout="column" layour-align="center center">
+      <div flex style="width:50%">
+        <md-input-container class="md-block">
+          <!-- Use floating placeholder instead of label -->
+          <input ng-model="searchString" type="input" placeholder="Search" ng-required="true">
+          <md-icon class="fa fa-search search-icon" ng-click="search(searchString)"></md-icon>
+        </md-input-container>
       </div>
     </div>
   </md-toolbar>
+
+
+  <!-- <div flex layout="row" layout-align="center">
+    <div flex="90">
+      <md-input-container class="md-block">
+        <md-icon class="fa fa-search"></md-icon>
+        <input ng-model="searchString" type="input" placeholder="Search" ng-required="true">
+      </md-input-container>
+    </div>
+    <div layout="column" layout-align="center center">
+      <md-button class="search-button" ng-click="search(searchString)"
+            class="plex-color">
+            Search
+      </md-button>
+    </div>
+  </div> -->
 
   <!-- SEARCH CONTENT -->
   <md-content layout-padding ng-if="searching">
