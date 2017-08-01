@@ -37,16 +37,30 @@ body {
 }
 
 .section-header {
-  background: #009688;
+  background: #00695c;
   padding: 5px;
   height: 35px;
   overflow: hidden;
+}
+
+.green {
+  color: #8bc34a;
+}
+
+.red {
+  color: #f44336;
 }
 
 .section-text {
   text-align: center;
   padding: 1%;
   font-size: 5vh;
+}
+
+.rating-section {
+  color: white;
+  background-color: rgba(45, 45, 45, .3);
+  padding: 2px;
 }
 
 .title-font {

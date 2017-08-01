@@ -20,6 +20,7 @@ angular.module('plexrequestApp')
     $scope.searchTV = searchTV;
     $scope.backToHome = backToHome;
     $scope.backToTVHome = backToTVHome;
+    // $scope.getMovieReviews = getMovieReviews;
 
     //Variables
     $scope.addedMovies = [];
@@ -39,6 +40,18 @@ angular.module('plexrequestApp')
     function backToTVHome() {
       $scope.tvSearching = !$scope.tvSearching;
     }
+
+    // function getMovieReviews(movie) {
+    //   $.ajax({
+		// 			url : "https://api.themoviedb.org/3/movie/" + movie.id + "reviews?api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99",
+		// 			dataType : "jsonp",
+		// 			success : function(parsed_json) {
+		// 				$scope.$apply(function() { // put $scope var that needs to be updated
+    //           console.log(parsed_json);
+		// 				});
+		// 			}
+    //     });
+    // }
 
     function close() {
       // Component lookup should always be available since we are not using `ng-if`
@@ -82,7 +95,7 @@ angular.module('plexrequestApp')
       var body = "";
 
       for(var i = 0; i < $scope.addedMovies.length; i++) {
-        var movie = $scope.addedMovies[i];
+        var movie = $scope.addedMovies[i].replace("&", "and");
         body += movie + ", "
       }
 
@@ -142,6 +155,7 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.popularMovies = parsed_json.results;
+              console.log($scope.popularMovies);
 						});
 					}
         });
@@ -208,6 +222,7 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.popularShows = parsed_json.results;
+              console.log($scope.popularShows);
 						});
 					}
         });
