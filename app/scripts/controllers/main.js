@@ -14,12 +14,15 @@ angular.module('plexrequestApp')
     $scope.init = init;
     $scope.select = select;
     $scope.selectShow = selectShow;
+    $scope.selectPerson = selectPerson;
     $scope.close = close;
     $scope.sendRequest = sendRequest;
     $scope.search = search;
     $scope.searchTV = searchTV;
+    $scope.searchPeople = searchPeople;
     $scope.backToHome = backToHome;
     $scope.backToTVHome = backToTVHome;
+    $scope.backToPersonSearch = backToPersonSearch;
     // $scope.getMovieReviews = getMovieReviews;
 
     //Variables
@@ -27,6 +30,7 @@ angular.module('plexrequestApp')
     $rootScope.addedMovies = [];
     $scope.searching = false;
     $scope.tvSearching = false;
+    $scope.peopleSearching = false;
     $scope.showMovies = true;
     $scope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function(){
@@ -39,6 +43,10 @@ angular.module('plexrequestApp')
 
     function backToTVHome() {
       $scope.tvSearching = !$scope.tvSearching;
+    }
+
+    function backToPersonSearch() {
+      $scope.peopleSearching = true;
     }
 
     // function getMovieReviews(movie) {
@@ -87,6 +95,25 @@ angular.module('plexrequestApp')
           $scope.addedMovies.splice(index, 1);
         }
       }
+    }
+
+    function selectPerson(person) {
+      $scope.peopleSearching = false;
+      $scope.showPersonSearch = true;
+      $scope.selectedPerson = person;
+      console.log(person)
+
+      //Popular movies call
+      $.ajax({
+					url : "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99&with_cast=" + person.id,
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.selectedPersonMovies = parsed_json.results;
+              console.log(parsed_json);
+						});
+					}
+        });
     }
 
     function sendRequest() {
@@ -146,6 +173,22 @@ angular.module('plexrequestApp')
         $scope.tvSearching = true;
     }
 
+    function searchPeople(string) {
+      var query = encodeURI(string);
+      // Search
+      $.ajax({
+					url : "https://api.themoviedb.org/3/search/person?api_key=7f5c7cfc2f811e4c7c6c6e5ee73bba99&query=" + encodeURI(string),
+					dataType : "jsonp",
+					success : function(parsed_json) {
+						$scope.$apply(function() { // put $scope var that needs to be updated
+              $scope.searchPeopleResults = parsed_json.results;
+						});
+					}
+        });
+        
+        $scope.peopleSearching = true;
+    }
+
     function init() {
 
       //Popular movies call
@@ -155,7 +198,7 @@ angular.module('plexrequestApp')
 					success : function(parsed_json) {
 						$scope.$apply(function() { // put $scope var that needs to be updated
               $scope.popularMovies = parsed_json.results;
-              console.log($scope.popularMovies);
+              console.log(parsed_json);
 						});
 					}
         });
